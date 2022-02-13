@@ -18,7 +18,7 @@ function checksExistsUserAccount(request, response, next) {
 
 
   if(!user) {
-    return response.status(400).json({ error: "User not found!" })
+    return response.status(404).json({ error: "User not found!" })
   }
 
   request.user = user
@@ -31,7 +31,7 @@ app.post('/users', (request, response) => {
 
   const userAlreadyExists = users.some((user) => user.username === username)
   if(userAlreadyExists) {
-    return response.status(400).json({ error: "User already exists!" })
+    return response.status(404).json({ error: "User already exists!" })
   }
 
   const user = {
@@ -75,7 +75,7 @@ app.put('/todos/:_id', checksExistsUserAccount, (request, response) => {
   const todo = user.todos.find((todo) => todo.id === _id)
 
   if(!todo) {
-    return response.status(400).json({ error: "All not found!" })
+    return response.status(404).json({ error: "All not found!" })
   }
 
   user.todo = todo
@@ -92,7 +92,7 @@ app.patch('/todos/:_id/done', checksExistsUserAccount, (request, response) => {
   const todo = user.todos.find((todo) => todo.id === _id)
 
   if(!todo) {
-    return response.status(400).json({ error: "All not found!" })
+    return response.status(404).json({ error: "All not found!" })
   }
 
   user.todo = todo
